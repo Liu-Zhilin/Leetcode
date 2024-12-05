@@ -1,1 +1,38 @@
+# 题目
 
+131.给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
+
+![image](https://github.com/user-attachments/assets/18d75488-5ee6-4d53-9d15-ec7303585294)
+
+
+# 基础求解
+## Python
+```
+class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        result=[]
+        path=[]
+        self.backtracking(s,result,path,0)
+        return result
+    def backtracking(self,s,result,path,startindex):
+        #终止条件
+        if startindex==len(s):
+            result.append(path[:])
+            return
+        #递归
+        for i in range(startindex,len(s)):
+            if self.is_palindrome(s, startindex, i):
+                path.append(s[startindex:i+1])
+                self.backtracking(s,result,path,i+1)
+                path.pop()
+    #判断回文子串
+    def is_palindrome(self, s, start, end):
+        i=start
+        j=end
+        while i<j:
+            if s[i]!=s[j]:
+                return False
+            i+=1
+            j-=1
+        return True
+```
